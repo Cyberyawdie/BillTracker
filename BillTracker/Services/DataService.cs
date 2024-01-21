@@ -1,0 +1,54 @@
+﻿using SQLite;
+
+namespace BillTracker.Services;
+
+public class DataService
+{
+    private readonly SQLiteAsyncConnection _database;
+
+    public DataService(string dbPath)
+    {
+        _database = new SQLiteAsyncConnection(dbPath);
+        _database.CreateTableAsync<Bill>();
+        SeedDataAsync().Wait();
+    }
+
+    private async Task SeedDataAsync()
+    {
+        var billsCount = await _database.Table<Bill>().CountAsync();
+        if (billsCount == 0)
+        {
+            // List of seed bills
+            var seedBills = new List<Bill>
+            {
+                new Bill { Name = "Electricity", Amount = 150.0M, OriginalDueDate = new DateTime(2023, 1, 15), CurrentDueDate = new DateTime(2023, 1, 15), IsPaid = false },
+                new Bill { Name = "Water", Amount = 50.0M, OriginalDueDate = new DateTime(2023, 1, 20), CurrentDueDate = new DateTime(2023, 1, 20), IsPaid = false },
+                // ... other seed bills ...
+            };
+
+            foreach (var bill in seedBills)
+            {
+                await _database.InsertAsync(bill);
+            }
+        }
+    }
+
+    public async Task<IEnumerable<Bill>> GetItemsAsync()
+    {
+        return await _database.Table<Bill>().ToListAsync();
+
+    }
+    public Task<int> AddBillAsync(Bill bill)
+    {
+        return _database.InsertAsync(bill);
+    }
+    public Task<int> UpdateBillAsync(Bill bill)
+    {
+        return _database.UpdateAsync(bill);
+    }
+    public Task<int> DeleteBillByIdAsync(int id)
+    {
+        return _database.Table<Bill>().DeleteAsync(b => b.Id == id);
+    }
+
+}
