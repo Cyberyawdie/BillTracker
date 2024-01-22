@@ -1,22 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-			 x:Class="BillTracker.Views.MainPage">
+			 x:Class="BillTracker.Views.MainPage"
+             Title="Bill Tracker App">
 
-    <RefreshView x:Name="refreshview" Refreshing="OnRefreshing">
-        <CollectionView x:Name="collectionview">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame Margin="4" Padding="12">
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="ItemTapped" />
-                        </Frame.GestureRecognizers>
-                        <!--<Label Text="{Binding Name}" FontSize="Large" TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Black}}" />-->
-                        <Label Text="Hello" FontSize="Large" TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Black}}" />
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </RefreshView>
+    <VerticalStackLayout Padding="20" Spacing="15">
+        <Label Text="Welcome to the Bill Tracker App!" FontSize="Large" HorizontalOptions="Center"/>
+
+        <Label x:Name="TotalAmountDueLabel" FontSize="Medium"/>
+        <Label x:Name="OverdueBillsLabel" FontSize="Medium"/>
+        <Label x:Name="CurrentBillsLabel" FontSize="Medium"/>
+        <Label x:Name="PaidOffBillsLabel" FontSize="Medium"/>
+    </VerticalStackLayout>
 
 </ContentPage>

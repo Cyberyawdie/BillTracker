@@ -3,22 +3,44 @@
 [QueryProperty(nameof(Item), "Item")]
 public partial class BillDetailPage : ContentPage
 {
-	Bill item;
+    readonly DataService dataService;
+    private Bill _bill;
 
 	public Bill Item
 	{
-		get { return item; }
+		get { return _bill; }
 		set
 		{
-			item = value;
-
-			DisplayedTitle.Text = item.Name;
-			DisplayedDescription.Text = item.Description;
-		}
+           
+			_bill = value;
+            SetBillDetails();
+        }
 	}
 
-	public BillDetailPage()
+	public BillDetailPage(DataService service)
 	{
 		InitializeComponent();
-	}
+        dataService = service;
+    }
+
+    private void SetBillDetails()
+    {
+        NameLabel.Text = _bill.Name;
+        AmountLabel.Text = $"${_bill.Amount}";
+        DueDateLabel.Text = _bill.CurrentDueDate.ToString("d");
+        IsPaidLabel.Text = _bill.IsPaid ? "Yes" : "No";
+
+        MarkAsPaidButton.IsEnabled = !_bill.IsPaid;
+    }
+
+    private async void OnMarkAsPaidClicked(object sender, EventArgs e)
+    {
+        _bill.IsPaid = true;
+        _bill.PaymentDate = DateTime.Now;
+
+        await dataService.UpdateBillAsync(_bill); // Update bill in database
+        SetBillDetails();
+
+        // Optionally navigate back or update UI further
+    }
 }

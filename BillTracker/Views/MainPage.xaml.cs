@@ -4,50 +4,40 @@ namespace BillTracker.Views;
 
 public partial class MainPage : ContentPage
 { 
-    readonly DataService dataService;
-    private ObservableCollection<Bill> Items { get; set; }
 
+    private readonly DataService _dataService;
 	public MainPage(DataService service)
 	{
         InitializeComponent();
-        dataService = service;
+      _dataService = service;
+        LoadDataAsync();
     }
 
-   
-
-
-    protected override async void OnNavigatedTo(NavigatedToEventArgs args)
+    protected override async void OnAppearing()
     {
-        base.OnNavigatedTo(args);
-
-        await LoadDataAsync();
+        base.OnAppearing();
+        LoadDataAsync(); // Reload data every time the page appears
     }
-    private async void OnRefreshing(object sender, EventArgs e)
+
+    private async void LoadDataAsync()
     {
-        refreshview.IsRefreshing = true;
+        var bills = await _dataService.GetItemsAsync(); // Fetch bills from the database
+        var currentMonth = DateTime.Now.Month;
+        var currentYear = DateTime.Now.Year;
 
-        try
-        {
-            await LoadDataAsync();
-        }
-        finally
-        {
-            refreshview.IsRefreshing = false;
-        }
+        var totalDueThisMonth = bills.Where(b => (b.CurrentDueDate.Month == currentMonth && b.CurrentDueDate.Year == currentYear) && !b.IsPaid ||
+        (b.CurrentDueDate < new DateTime(currentYear, currentMonth, 1) && !b.IsPaid))
+                                     .Sum(b => b.Amount);
+        var totalPaidThisMonth = bills.Where(b => (b.CurrentDueDate.Month == currentMonth && b.CurrentDueDate.Year == currentYear && b.PaymentDate?.Month == currentMonth) && b.IsPaid)
+                                    .Sum(b => b.Amount);
+        var overdueBillsCount = bills.Count(b => b.CurrentDueDate < DateTime.Now && !b.IsPaid);
+        var currentBillsCount = bills.Count(b => b.CurrentDueDate.Month == currentMonth && !b.IsPaid);
+        var paidOffBillsCount = bills.Count(b => b.PaymentDate?.Month == currentMonth);
+
+        TotalAmountDueLabel.Text = $"Total Amount Due This Month: ${totalDueThisMonth:0.00}";
+        OverdueBillsLabel.Text = $"Overdue Bills: {overdueBillsCount}";
+        CurrentBillsLabel.Text = $"Bills Due This Month: {currentBillsCount}";
+        PaidOffBillsLabel.Text = $"Congratulations! You've paid off {paidOffBillsCount} bill(s) this month totaling: ${totalPaidThisMonth:0.00} .";
     }
 
-    private async Task LoadDataAsync()
-    {
-        Items = new ObservableCollection<Bill>(await dataService.GetItemsAsync());
-
-        collectionview.ItemsSource = Items;
-    }
-
-    private async void ItemTapped(object sender, EventArgs e)
-    {
-        await Shell.Current.GoToAsync(nameof(BillDetailPage), true, new Dictionary<string, object>
-        {
-            { "Item", (sender as BindableObject).BindingContext as Bill }
-        });
-    }
 }

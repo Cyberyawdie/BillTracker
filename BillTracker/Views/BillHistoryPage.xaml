@@ -1,0 +1,73 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BillTracker.Views.BillHistoryPage"
+             xmlns:local="clr-namespace:BillTracker.Views"
+             Title="BillHistoryPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!-- Style for unpaid bill -->
+            <Style x:Key="UnpaidBillStyle" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="LightPink"/>
+            </Style>
+
+            <!-- Style for paid bill -->
+            <Style x:Key="PaidBillStyle" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="LightGreen"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="10" Spacing="10">
+            <!-- Outer CollectionView for Years -->
+            <CollectionView x:Name="BillsCollectionView">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <!-- Display the Year -->
+                            <Label Text="{Binding Year}" FontAttributes="Bold" FontSize="Large"/>
+
+                            <!-- Inner CollectionView for Months -->
+                            <CollectionView ItemsSource="{Binding Months}">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackLayout>
+                                            <!-- Display the Month -->
+                                            <Label Text="{Binding MonthName}" FontAttributes="Bold"/>
+
+                                            <!-- CollectionView for Bills -->
+                                            <CollectionView ItemsSource="{Binding Bills}">
+                                                <CollectionView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Frame Padding="10" Margin="5">
+                                                            <Frame.Style>
+                                                                <Style BasedOn="{StaticResource UnpaidBillStyle}" TargetType="Frame">
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger TargetType="Frame" Binding="{Binding IsPaid}" Value="True">
+                                                                            <Setter Property="BackgroundColor" Value="LightGreen"/>
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </Frame.Style>
+                                                            <StackLayout>
+                                                                <Label Text="{Binding Name}" FontSize="Medium" TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Black}}"/>
+                                                                <Label Text="{Binding Amount, StringFormat='Amount Due: {0:C}'}" TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Black}}"/>
+                                                                <Label Text="{Binding CurrentDueDate, StringFormat='Due Date: {0:d}'}" TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Black}}"/>
+
+                                                            </StackLayout>
+                                                        </Frame>
+                                                    </DataTemplate>
+                                                </CollectionView.ItemTemplate>
+                                            </CollectionView>
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

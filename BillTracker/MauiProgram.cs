@@ -17,17 +17,17 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
-        //builder.Services.AddDbContext<BillContext>();
-        //builder.Services.AddDbContext<BillContext>(options =>
-        //   options.UseSqlite($"Filename={System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), "bills.db")}"));
         string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "bills.db");
         builder.Services.AddSingleton(new DataService(dbPath));
 
         builder.Services.AddSingleton<MainPage>();
 		builder.Services.AddTransient<BillDetailPage>();
+		builder.Services.AddTransient<AddBillPage>();
 
-		builder.Services.AddSingleton<BillsPage>();
+        builder.Services.AddSingleton<BillsPage>();
+        builder.Services.AddSingleton<BillHistoryPage>();
+        builder.Services.AddSingleton<AccountPage>();
 
-		return builder.Build();
+        return builder.Build();
 	}
 }

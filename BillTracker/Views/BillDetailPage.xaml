@@ -4,8 +4,20 @@
 			 x:Class="BillTracker.Views.BillDetailPage">
 	<ScrollView>
 		<VerticalStackLayout Margin="12">
-			<Label x:Name="DisplayedTitle" FontSize="Header" />
-			<Label x:Name="DisplayedDescription" FontSize="Default" />
-		</VerticalStackLayout>
+            <Label Text="Name:" FontSize="Medium"/>
+            <Label x:Name="NameLabel" FontSize="Small"/>
+
+            <Label Text="Amount:" FontSize="Medium"/>
+            <Label x:Name="AmountLabel" FontSize="Small"/>
+
+            <Label Text="Due Date:" FontSize="Medium"/>
+            <Label x:Name="DueDateLabel" FontSize="Small"/>
+
+            <Label Text="Paid:" FontSize="Medium"/>
+            <Label x:Name="IsPaidLabel" FontSize="Small"/>
+
+            <Button x:Name="MarkAsPaidButton" Text="Mark as Paid" Clicked="OnMarkAsPaidClicked"/>
+
+        </VerticalStackLayout>
 	</ScrollView>
 </ContentPage>

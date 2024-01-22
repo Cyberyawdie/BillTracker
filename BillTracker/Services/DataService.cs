@@ -10,7 +10,7 @@ public class DataService
     {
         _database = new SQLiteAsyncConnection(dbPath);
         _database.CreateTableAsync<Bill>();
-        SeedDataAsync().Wait();
+        SeedDataAsync();
     }
 
     private async Task SeedDataAsync()
@@ -49,6 +49,21 @@ public class DataService
     public Task<int> DeleteBillByIdAsync(int id)
     {
         return _database.Table<Bill>().DeleteAsync(b => b.Id == id);
+    }
+    public async Task DeleteBillsOlderThanAsync(DateTime cutoffDate)
+    {
+        var oldBills = await _database.Table<Bill>()
+                                      .Where(b => b.CurrentDueDate < cutoffDate && b.IsPaid)
+                                      .ToListAsync();
+
+        foreach (var bill in oldBills)
+        {
+            await _database.DeleteAsync(bill);
+        }
+    }
+    public async Task DeleteAllBillsAsync()
+    {
+        await _database.DeleteAllAsync<Bill>();
     }
 
 }

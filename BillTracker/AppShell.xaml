@@ -18,4 +18,17 @@
 		Icon="iconlistdetail.png"
 		ContentTemplate="{DataTemplate views:BillsPage}"
 		Route="BillsPage" />
+    <ShellContent
+	Shell.NavBarIsVisible="true"
+	Title="Bill History"
+	Icon="iconlistdetail.png"
+	ContentTemplate="{DataTemplate views:BillHistoryPage}"
+	Route="BillHistoryPage" />
+    <ShellContent
+	Shell.NavBarIsVisible="true"
+	Title="Account"
+	Icon="iconlistdetail.png"
+	ContentTemplate="{DataTemplate views:AccountPage}"
+	Route="AccountPage" />
+
 </Shell>

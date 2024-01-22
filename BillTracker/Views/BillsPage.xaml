@@ -1,20 +1,69 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:BillTracker.Views"
 			 x:Class="BillTracker.Views.BillsPage">
-	<RefreshView x:Name="refreshview" Refreshing="OnRefreshing">
-		<CollectionView x:Name="collectionview">
-			<CollectionView.ItemTemplate>
-				<DataTemplate>
-					<Frame Margin="4" Padding="12">
-						<Frame.GestureRecognizers>
-							<TapGestureRecognizer Tapped="ItemTapped" />
-						</Frame.GestureRecognizers>
-                        <!--<Label Text="{Binding Name}" FontSize="Large" TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Black}}" />-->
-                        <Label Text="Hello" FontSize="Large" TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Black}}" />
-                    </Frame>
-				</DataTemplate>
-			</CollectionView.ItemTemplate>
-		</CollectionView>
-	</RefreshView>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Clicked="OnAddClicked"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:OverdueBillConverter x:Key="OverdueBillConverter"/>
+            <Style x:Key="OverdueBillStyle" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="LightPink"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid Padding="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Total Amount Section -->
+            <RowDefinition Height="*"/>
+            <!-- RefreshView Section -->
+        </Grid.RowDefinitions>
+        <VerticalStackLayout Grid.Row="0" >
+        <Label x:Name="CurrentMonthLabel" FontAttributes="Bold"/>
+        <Label x:Name="TotalAmountLabel" FontSize="Large" TextColor="Green"/>
+    </VerticalStackLayout>
+        <RefreshView Grid.Row="1" x:Name="refreshview" Refreshing="OnRefreshing">
+        <CollectionView x:Name="collectionview">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems Mode="Execute">
+                                <SwipeItem Text="Delete" 
+                                   BackgroundColor="Red" 
+                                   Invoked="OnDeleteSwipeItemInvoked" />
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+                            <Frame Margin="4" Padding="12" BackgroundColor="White">                                
+                                    <!-- DataTrigger will change the color if the bill is unpaid and from a previous month -->
+                                <Frame.Style>
+                                    <Style TargetType="Frame" BasedOn="{StaticResource OverdueBillStyle}">
+                                        <Style.Triggers>
+                                            <DataTrigger TargetType="Frame"
+                                     Value="True">
+                                                <DataTrigger.Binding>
+                                                    <MultiBinding Converter="{StaticResource OverdueBillConverter}">
+                                                        <Binding Path="CurrentDueDate"/>
+                                                        <Binding Path="IsPaid"/>
+                                                    </MultiBinding>
+                                                </DataTrigger.Binding>
+                                                <Setter Property="BackgroundColor" Value="LightPink"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Frame.Style>
+                                <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="ItemTapped" />
+                            </Frame.GestureRecognizers>
+                            <Label Text="{Binding Name}" FontSize="Large" TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Black}}" />
+                        </Frame>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </RefreshView>
+</Grid>
 </ContentPage>
