@@ -4,7 +4,7 @@
              x:Class="BillTracker.Views.AccountPage"
              Title="AccountPage">
     <VerticalStackLayout Padding="20" Spacing="15">
-        <Button Text="Delete Bill History" Clicked="OnDeleteHistoryClicked"/>
+        <Button Text="Delete All Bills" Clicked="OnDeleteHistoryClicked"/>
 
         <Label Text="Store Bill Data For:"/>
         <Picker x:Name="DataStorageDurationPicker" SelectedIndexChanged="OnDurationChanged">
