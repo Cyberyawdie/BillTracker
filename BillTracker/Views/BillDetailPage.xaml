@@ -16,7 +16,15 @@
             <Label Text="Paid:" FontSize="Medium"/>
             <Label x:Name="IsPaidLabel" FontSize="Small"/>
 
-            <Button x:Name="MarkAsPaidButton" Text="Mark as Paid" Clicked="OnMarkAsPaidClicked"/>
+            <Entry x:Name="PartialPaymentEntry"
+               Keyboard="Numeric"
+               Placeholder="Enter partial payment amount"/>
+
+            <Button Text="Make Partial Payment"
+                Clicked="OnPartialPaymentClicked" Margin="0,10,0,0" />
+
+            <Button x:Name="MarkAsPaidButton" Text="Mark as Paid"
+                Clicked="OnMarkAsPaidClicked" Margin="0,10,0,0" />
 
         </VerticalStackLayout>
 	</ScrollView>

@@ -65,5 +65,13 @@ public class DataService
     {
         await _database.DeleteAllAsync<Bill>();
     }
+    public async Task<List<string>> GetDistinctBillNamesAsync()
+    {
+        // Assuming you have a DbContext or similar data access setup
+        // This is an example and might differ based on your database setup
+        var bills = await _database.Table<Bill>().ToListAsync();
+
+        return bills.Select(b => b.Name).Distinct().ToList();
+    }
 
 }

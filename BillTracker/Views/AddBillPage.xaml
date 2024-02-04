@@ -4,9 +4,20 @@
              x:Class="BillTracker.Views.AddBillPage"
              Title="AddBillPage">
     <VerticalStackLayout Padding="20">
-        <Entry x:Name="NameEntry" Placeholder="Bill Name" />
+        <Entry x:Name="NameEntry" Placeholder="Bill Name"  TextChanged="BillNameEntry_TextChanged" />
         <Entry x:Name="AmountEntry" Placeholder="Amount" Keyboard="Numeric" />
         <DatePicker x:Name="DueDatePicker" />
         <Button Text="Add Bill" Clicked="OnAddBillClicked" />
+        <CollectionView x:Name="BillNameSuggestions" 
+                    IsVisible="False" 
+                    SelectionMode="Single"
+                    SelectionChanged="BillNameSuggestions_SelectionChanged">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Label Text="{Binding}" 
+                       Margin="10"/>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </VerticalStackLayout>
 </ContentPage>

@@ -54,6 +54,7 @@
                                                                 <Label Text="{Binding Name}" FontSize="Medium" TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Black}}"/>
                                                                 <Label Text="{Binding Amount, StringFormat='Amount Due: {0:C}'}" TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Black}}"/>
                                                                 <Label Text="{Binding CurrentDueDate, StringFormat='Due Date: {0:d}'}" TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Black}}"/>
+                                                                <Label Text="{Binding PaymentDate, StringFormat='Date Paid: {0:d}'}" TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Black}}"/>
 
                                                             </StackLayout>
                                                         </Frame>
