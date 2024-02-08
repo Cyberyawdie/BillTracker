@@ -1,0 +1,114 @@
+repo_name: Cyberyawdie/BillTracker
+report_id: 7025a6dd9819de833d5af8aaf66738e2
+version: 0.1
+repo_type: Public
+timestamp: '2024-02-08T00:36:34+00:00'
+requested_by: Cyberyawdie
+provider: github
+branch: develop
+detected_tools_count: 8
+tools:
+- name: C#
+  description: Simple, general-purpose, object-oriented programming language for the
+    .NET platform
+  website_url: http://csharp.net
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/1015/1200px-C_Sharp_wordmark.svg.png
+  detection_source_url: https://github.com/Cyberyawdie/BillTracker
+  detection_source: Repo Metadata
+- name: ".NET"
+  description: A free, cross-platform, open source developer platform for building
+    many different types of applications
+  website_url: http://www.microsoft.com/net/
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Frameworks (Full Stack)
+  image_url: https://img.stackshare.io/service/1014/IoPy1dce_400x400.png
+  detection_source_url: https://github.com/Cyberyawdie/BillTracker/blob/develop/BillTracker/BillTracker.csproj
+  detection_source: BillTracker/BillTracker.csproj
+  last_updated_by: Shanoy Dixon
+  last_updated_on: 2024-01-21 00:36:28.000000000 Z
+- name: Git
+  description: Fast, scalable, distributed revision control system
+  website_url: http://git-scm.com/
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Version Control System
+  image_url: https://img.stackshare.io/service/1046/git.png
+  detection_source_url: https://github.com/Cyberyawdie/BillTracker
+  detection_source: Repo Metadata
+- name: NuGet
+  description: The package manager for .NET
+  website_url: https://www.nuget.org/
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Package Managers
+  image_url: https://img.stackshare.io/service/2637/6I3oEOP4_400x400.jpg
+  detection_source_url: https://github.com/Cyberyawdie/BillTracker/blob/develop/BillTracker/BillTracker.csproj
+  detection_source: BillTracker/BillTracker.csproj
+  last_updated_by: Shanoy Dixon
+  last_updated_on: 2024-01-21 00:36:28.000000000 Z
+- name: Visual Studio
+  description: State-of-the-art tools and services that you can use to create great
+    apps for devices, the cloud, and everything in between.
+  website_url: http://msdn.microsoft.com/en-us/vstudio/aa718325.aspx
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Integrated Development Environment
+  image_url: https://img.stackshare.io/service/1451/SR2hUhQN.png
+  detection_source_url: https://github.com/Cyberyawdie/BillTracker/blob/develop/BillTracker.sln
+  detection_source: BillTracker.sln
+  last_updated_by: Shanoy Dixon
+  last_updated_on: 2024-01-21 00:36:28.000000000 Z
+- name: Microsoft.Extensions.Logging.Debug
+  description: Debug output logger provider implementation for Microsoft.Extensions.Logging
+  package_url: https://www.nuget.org/Microsoft.Extensions.Logging.Debug
+  version: 8.0.0
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: NuGet Packages
+  image_url: https://img.stackshare.io/package/12995/default_c33fee4544dbdcb376300222dc5e214ee63f7ce9.png
+  detection_source_url: https://github.com/Cyberyawdie/BillTracker/blob/develop/BillTracker/BillTracker.csproj
+  detection_source: BillTracker/BillTracker.csproj
+  last_updated_by: Shanoy Dixon
+  last_updated_on: 2024-01-22 17:24:24.000000000 Z
+- name: SQLitePCLRaw.bundle_green
+  description: This 'batteries-included' bundle brings in SQLitePCLRaw.core and the
+    necessary stuff for certain common use cases
+  package_url: https://www.nuget.org/SQLitePCLRaw.bundle_green
+  version: 2.1.7
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: NuGet Packages
+  image_url: https://img.stackshare.io/package/13703/default_464fb9b438380c5ec98e481823a05b9599991662.png
+  detection_source_url: https://github.com/Cyberyawdie/BillTracker/blob/develop/BillTracker/BillTracker.csproj
+  detection_source: BillTracker/BillTracker.csproj
+  last_updated_by: Shanoy Dixon
+  last_updated_on: 2024-01-23 04:46:45.000000000 Z
+- name: sqlite-net-pcl
+  description: SQLite-net is an open source and light weight library providing easy
+    SQLite database storage for .NET, Mono, and Xamarin applications
+  package_url: https://www.nuget.org/sqlite-net-pcl
+  version: 1.8.116
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: NuGet Packages
+  image_url: https://img.stackshare.io/package/13315/default_a905ee276a536c55784ed56585a51a44d19b6d5b.png
+  detection_source_url: https://github.com/Cyberyawdie/BillTracker/blob/develop/BillTracker/BillTracker.csproj
+  detection_source: BillTracker/BillTracker.csproj
+  last_updated_by: Shanoy Dixon
+  last_updated_on: 2024-01-21 00:36:28.000000000 Z
